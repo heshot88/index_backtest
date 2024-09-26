@@ -48,6 +48,7 @@ site_packages_paths = site.getsitepackages()
 installed_packages = []
 
 for path in site_packages_paths:
+    print(path)
     if os.path.exists(path):
         # site-packages 폴더 내 모든 디렉토리 및 파일 탐색
         for item in os.listdir(path):
