@@ -32,7 +32,7 @@ else:
 @st.cache_resource
 def install_package(url):
     # subprocess.run([sys.executable, "-m", "pip", "install", url])
-    subprocess.run(["pip", "install", "--user", package_url])
+    subprocess.run(["pip", "install", package_url], check=True)
 
 
 package_url = f"git+https://{github_token}@github.com/heshot88/krx_backtester.git#egg=krx_backtester"
