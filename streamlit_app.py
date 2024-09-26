@@ -34,6 +34,14 @@ def install_package(url):
     # subprocess.run([sys.executable, "-m", "pip", "install", url])
     subprocess.run(["pip", "install", package_url], check=True)
 
+    # 설치된 패키지 경로 확인
+    result = subprocess.run(["pip", "show", "krx_backtester"], capture_output=True, text=True)
+    if result.returncode == 0:
+        print("krx_backtester 패키지가 설치된 경로:")
+        print(result.stdout)
+    else:
+        print("krx_backtester 패키지가 설치되지 않았습니다.")
+
 
 package_url = f"git+https://{github_token}@github.com/heshot88/krx_backtester.git#egg=krx_backtester"
 install_package(package_url)
