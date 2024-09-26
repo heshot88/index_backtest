@@ -187,8 +187,8 @@ with st.container():
                 sell_fee_rate = custom_number_input("매도 수수료율(%)", value=0.2)
 
         with st.container():
-            col1, col2 ,col3 = st.columns([5,1,1])
-            with col3 :       # 조회 버튼 생성
+            col1, col2, col3 = st.columns([5, 1, 1])
+            with col3:  # 조회 버튼 생성
                 search_button = st.button(" 🔍 조  회 ")
     # 간격 추가
     st.write("<br><br>", unsafe_allow_html=True)  # 조회 버튼과 테이블 사이의 간격 조정
@@ -196,17 +196,16 @@ with st.container():
     # 버튼 클릭 시 결과 테이블 출력
     # 버튼 클릭 시 결과 테이블 출력
     if search_button:
-        if initial_ratio >0 :
+        if initial_ratio > 0:
             is_first = True
-        else :
+        else:
             is_first = False
         if st.session_state.conn:
-            result_df_t = kbt.sangwoo_01(st.session_state.conn, index_name, st_date_str, money, ohlc_type,initial_ratio,
-                                       buy_ratio,sell_ratio,buy_fee_rate,sell_fee_rate,is_first)
+            result_df_t = kbt.sangwoo_01(st.session_state.conn, index_name, st_date_str, money, ohlc_type,
+                                         initial_ratio, buy_ratio, sell_ratio, buy_fee_rate, sell_fee_rate, is_first)
             result_df = result_df_t.reset_index(drop=True)
         else:
             result_df = pd.DataFrame()
-
 
         # 데이터프레임을 세션 상태에 저장
         st.session_state.result_df = result_df
