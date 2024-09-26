@@ -58,7 +58,7 @@ for path in site_packages_paths:
                 installed_packages.append(package_name)
 
 # 결과 출력
-print("설치된 패키지 목록:")
+print("설치된 패키지 목록: ")
 for package in installed_packages:
     print(package)
 
