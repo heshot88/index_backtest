@@ -41,12 +41,12 @@ install_package(package_url)
 # # 패키지 설치
 # os.system(f"pip install {package_url}") \
 #  \
-# # 설치된 패키지 경로 및 sys.path 확인
-# print("Installed packages:")
-# os.system("pip list")
-# print("Python executable:", sys.executable)
-# print("Python version:", sys.version)
-# print("sys.path:", sys.path)
+# 설치된 패키지 경로 및 sys.path 확인
+print("Installed packages:")
+os.system("pip list")
+print("Python executable:", sys.executable)
+print("Python version:", sys.version)
+print("sys.path:", sys.path)
 
 import krx_tester.krx_backtester as kbt
 
