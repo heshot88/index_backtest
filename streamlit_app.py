@@ -51,7 +51,8 @@ import krx_tester.krx_backtester as kbt
 
 if 'conn' not in st.session_state:
     # Initialize connection.
-    st.session_state.conn = st.connection("postgresql", type="sql")
+
+    st.session_state.conn = kbt.connect_db(db_host, db_port, db_user, db_password, db_name)
 
 if 'show_table' not in st.session_state:
     st.session_state.show_table = False
