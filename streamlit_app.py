@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 import math
 from datetime import datetime
 import io
+import pkgutil
 
 st.set_page_config(layout="wide")
 
@@ -41,13 +42,10 @@ install_package(package_url)
 # # 패키지 설치
 # os.system(f"pip install {package_url}") \
 #  \
-# 설치된 패키지 경로 및 sys.path 확인
-print("Installed packages:")
-os.system("pip list")
-print("Python executable:", sys.executable)
-print("Python version:", sys.version)
-print("sys.path:", sys.path)
+# 설치된 모든 패키지 확인
+installed_packages = [package.name for package in pkgutil.iter_modules()]
 
+print(installed_packages)
 import krx_backtester as kbt
 
 if 'conn' not in st.session_state:
