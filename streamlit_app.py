@@ -31,7 +31,8 @@ else:
 
 @st.cache_resource
 def install_package(url):
-    subprocess.run([sys.executable, "-m", "pip", "install", url])
+    # subprocess.run([sys.executable, "-m", "pip", "install", url])
+    subprocess.run(["pip", "install", "--user", package_url])
 
 
 package_url = f"git+https://{github_token}@github.com/heshot88/krx_backtester.git#egg=krx_backtester"
@@ -51,8 +52,7 @@ import krx_tester.krx_backtester as kbt
 
 if 'conn' not in st.session_state:
     # Initialize connection.
-
-    st.session_state.conn = kbt.connect_db(db_host, db_port, db_user, db_password, db_name)
+    st.session_state.conn = conn = st.connection("postgresql", type="sql")
 
 if 'show_table' not in st.session_state:
     st.session_state.show_table = False
