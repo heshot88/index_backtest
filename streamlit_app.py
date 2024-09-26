@@ -48,7 +48,7 @@ print("Python executable:", sys.executable)
 print("Python version:", sys.version)
 print("sys.path:", sys.path)
 
-import krx_backtester.krx_backtester as kbt
+import krx_backtester as kbt
 
 if 'conn' not in st.session_state:
     # Initialize connection.
