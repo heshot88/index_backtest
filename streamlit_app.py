@@ -8,7 +8,8 @@ import math
 from datetime import datetime
 import io
 import site
-from sqlalchemy import create_engine
+import krx_tester.krx_backtester as kbt
+
 
 st.set_page_config(layout="wide")
 
@@ -52,7 +53,6 @@ else:
 # # # 패키지 설치
 # # os.system(f"pip install {package_url}") \
 #
-import krx_tester.krx_backtester as kbt
 
 if 'conn' not in st.session_state:
     # Initialize connection.
@@ -62,12 +62,11 @@ if 'conn' not in st.session_state:
 
     # 연결 확인
     try:
-        st.session_state.conn = kbt.connect_db(db_host=db_host,db_port=db_port,db_user=db_user,db_password=db_password,db_name=db_name)
+        st.session_state.conn = kbt.connect_db(db_host=db_host, db_port=db_port, db_user=db_user,
+                                               db_password=db_password, db_name=db_name)
     except Exception as e:
         st.write("데이터베이스 연결 실패")
         print("데이터베이스 연결 실패:", str(e))
-
-
 
 if 'show_table' not in st.session_state:
     st.session_state.show_table = False
@@ -243,6 +242,8 @@ with st.container():
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             )
             current_page = st.number_input("페이지 번호", min_value=1, max_value=total_pages, value=1)
+            # 현재 페이지 정보 출력
+            st.write(f"페이지 {current_page}/{total_pages}")
 
         # current_page = st.session_state.current_page
 
@@ -254,8 +255,7 @@ with st.container():
         # 테이블을 화면 전체 너비로 출력 (use_container_width=True)
         st.dataframe(style_dataframe(paged_df), use_container_width=True, height=1024)
 
-        # 현재 페이지 정보 출력
-        st.write(f"페이지 {current_page}/{total_pages}")
+
 
 st.markdown("""
     <style>
