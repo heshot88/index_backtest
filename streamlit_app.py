@@ -166,9 +166,16 @@ with st.container():
         with st.container():
             col1, col2 = st.columns(2)
             with col4:
-                buy_ratio = custom_number_input("매수 비율(%)", value=20)
+                main_buy_ratio = custom_number_input("매수 비율(%)", value=20)
             with col5:
-                sell_ratio = custom_number_input("매도 비율(%)", value=20)
+                main_sell_ratio = custom_number_input("매도 비율(%)", value=20)
+
+        with st.container():
+            col1, col2 = st.columns(2)
+            with col4:
+                sub_buy_ratio = custom_number_input("인버스 매수 비율(%)", value=20)
+            with col5:
+                sub_sell_ratio = custom_number_input("인버스 매도 비율(%)", value=20)
 
         with st.container():
             col1, col2 = st.columns(2)
@@ -179,8 +186,7 @@ with st.container():
 
         with st.container():
             col1, col2, col3 = st.columns([5, 1, 1])
-            with col1:
-
+            with col2:
                 order_display = {
                     "오름차순": True,
                     "내림차순": False,
@@ -204,7 +210,8 @@ with st.container():
             is_first = False
         if st.session_state.conn:
             result_df_t = kbt.sangwoo_01(st.session_state.conn, index_name, st_date_str, money, ohlc_type,
-                                         initial_ratio, buy_ratio, sell_ratio, buy_fee_rate, sell_fee_rate, is_first)
+                                         initial_ratio, main_buy_ratio, main_sell_ratio, sub_buy_ratio,sub_sell_ratio,
+                                         buy_fee_rate, sell_fee_rate, is_first)
             result_df = result_df_t.reset_index(drop=True)
         else:
             result_df = pd.DataFrame()
