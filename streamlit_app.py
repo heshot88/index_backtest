@@ -84,11 +84,6 @@ except Exception as e :
     print("krx_backtester",e)
 
 try:
-    import krx-backtester as kbt
-except Exception as e :
-    print("krx-backtester",e)
-
-try:
     import krx_tester as kbt
 except Exception as e :
     print("krx_tester",e)
