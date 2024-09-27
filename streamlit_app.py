@@ -49,7 +49,7 @@ else:
 # # # 패키지 설치
 # # os.system(f"pip install {package_url}") \
 #
-import krx_backtester.krx_tester as kbt
+import krx_tester.krx_backtester as kbt
 
 
 
