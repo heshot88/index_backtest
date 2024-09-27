@@ -8,16 +8,19 @@ import math
 from datetime import datetime
 import io
 import site
+from sqlalchemy import create_engine
 
 st.set_page_config(layout="wide")
 
 if st.secrets.load_if_toml_exists():
     github_token = st.secrets["github"]["token"]
-    db_host = st.secrets.get("POSTGRESQL_HOST")
-    db_port = st.secrets.get('POSTGRESQL_PORT')
-    db_user = st.secrets.get('POSTGRESQL_USER')
-    db_password = st.secrets.get('POSTGRESQL_PASSWORD')
-    db_name = st.secrets.get('POSTGRESQL_DB')
+
+    # Streamlit Secrets에서 연결 정보 가져오기
+    db_user = st.secrets["postgres"]["user"]
+    db_password = st.secrets["postgres"]["password"]
+    db_host = st.secrets["postgres"]["host"]
+    db_port = st.secrets["postgres"]["port"]
+    db_name = st.secrets["postgres"]["dbname"]
 else:
     load_dotenv()
     github_token = os.getenv("GITHUB_TOKEN")
@@ -51,11 +54,21 @@ else:
 #
 import krx_tester.krx_backtester as kbt
 
-
-
 if 'conn' not in st.session_state:
     # Initialize connection.
-    st.session_state.conn = conn = st.connection("postgresql", type="sql")
+    # st.session_state.conn = st.connection("postgresql", type="sql")
+
+    engine = create_engine(f'postgresql+psycopg2://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}')
+    # 연결 확인
+    try:
+        connection = engine.connect()
+        print("데이터베이스 연결 성공")
+        st.session_state.conn = engine
+    except Exception as e:
+        st.write("데이터베이스 연결 실패")
+        print("데이터베이스 연결 실패:", str(e))
+
+
 
 if 'show_table' not in st.session_state:
     st.session_state.show_table = False
