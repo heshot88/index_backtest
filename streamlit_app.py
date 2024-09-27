@@ -215,8 +215,6 @@ with st.container():
         # 전체 페이지 수 계산
         total_pages = math.ceil(len(result_df) / rows_per_page)
 
-        current_page = st.session_state.current_page
-
 
         # 전체 데이터 다운로드 버튼
         towrite = io.BytesIO()
@@ -244,9 +242,11 @@ with st.container():
                 file_name=file_name,  # 파일 이름에 날짜와 시간 추가
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             )
-            current_page = st.number_input("페이지 번호", min_value=1, max_value=total_pages, value=1)
+            current_page = st.number_input("페이지 번호", min_value=1, max_value=total_pages, value=st.session_state.current_page)
             # 현재 페이지 정보 출력
             st.write(f"페이지 {current_page}/{total_pages}")
+
+        # current_page = st.session_state.current_page
 
         # 현재 페이지에 해당하는 데이터 슬라이싱
         start_idx = (current_page - 1) * rows_per_page
