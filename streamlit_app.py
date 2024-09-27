@@ -179,6 +179,16 @@ with st.container():
 
         with st.container():
             col1, col2, col3 = st.columns([5, 1, 1])
+            with col1:
+
+                order_display = {
+                    "오름차순": True,
+                    "내림차순": False,
+                }
+                order_options_list = list(order_display.keys())
+                order_selected = st.selectbox("정렬", order_options_list)
+                order_asc = order_display[order_selected]
+
             with col3:  # 조회 버튼 생성
                 search_button = st.button(" 🔍 조  회 ")
     # 간격 추가
@@ -207,8 +217,7 @@ with st.container():
     if st.session_state.show_table and 'result_df' in st.session_state:
         result_df = st.session_state.result_df
         # 데이터프레임의 인덱스를 제거한 상태로 출력
-        ascending = False
-        result_df = result_df.sort_values(by="일자", ascending=ascending)
+        result_df = result_df.sort_values(by="일자", ascending=order_asc)
         # 페이징 추가
         rows_per_page = 100
 
