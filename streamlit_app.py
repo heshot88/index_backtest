@@ -58,12 +58,11 @@ if 'conn' not in st.session_state:
     # Initialize connection.
     # st.session_state.conn = st.connection("postgresql", type="sql")
 
-    engine = create_engine(f'postgresql+psycopg2://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}')
+    # engine = create_engine(f'postgresql+psycopg2://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}')
+
     # 연결 확인
     try:
-        connection = engine.connect()
-        print("데이터베이스 연결 성공")
-        st.session_state.conn = engine
+        st.session_state.conn = kbt.connect_db(db_host=db_host,db_port=db_port,db_user=db_user,db_password=db_password,db_name=db_name)
     except Exception as e:
         st.write("데이터베이스 연결 실패")
         print("데이터베이스 연결 실패:", str(e))
