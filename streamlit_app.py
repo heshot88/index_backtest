@@ -10,7 +10,6 @@ import io
 import site
 import krx_tester.krx_backtester as kbt
 
-
 st.set_page_config(layout="wide")
 
 if st.secrets.load_if_toml_exists():
@@ -188,6 +187,7 @@ with st.container():
     # 버튼 클릭 시 결과 테이블 출력
     # 버튼 클릭 시 결과 테이블 출력
     if search_button:
+        st.session_state.current_page = 1
         if initial_ratio > 0:
             is_first = True
         else:
@@ -202,7 +202,6 @@ with st.container():
         # 데이터프레임을 세션 상태에 저장
         st.session_state.result_df = result_df
         st.session_state.show_table = True
-        st.session_state.current_page = 1
 
     # 세션 상태에 따라 테이블 표시
     if st.session_state.show_table and 'result_df' in st.session_state:
@@ -210,11 +209,10 @@ with st.container():
         # 데이터프레임의 인덱스를 제거한 상태로 출력
 
         # 페이징 추가
-        rows_per_page = 50
+        rows_per_page = 100
 
         # 전체 페이지 수 계산
         total_pages = math.ceil(len(result_df) / rows_per_page)
-
 
         # 전체 데이터 다운로드 버튼
         towrite = io.BytesIO()
@@ -242,11 +240,12 @@ with st.container():
                 file_name=file_name,  # 파일 이름에 날짜와 시간 추가
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             )
-            current_page = st.number_input("페이지 번호", min_value=1, max_value=total_pages, value=st.session_state.current_page)
+            current_page = st.number_input("페이지 번호", min_value=1, max_value=total_pages,
+                                           value=st.session_state.current_page)
             # 현재 페이지 정보 출력
             st.write(f"페이지 {current_page}/{total_pages}")
 
-        # current_page = st.session_state.current_page
+        st.session_state.current_page = current_page
 
         # 현재 페이지에 해당하는 데이터 슬라이싱
         start_idx = (current_page - 1) * rows_per_page
@@ -255,8 +254,6 @@ with st.container():
 
         # 테이블을 화면 전체 너비로 출력 (use_container_width=True)
         st.dataframe(style_dataframe(paged_df), use_container_width=True, height=1024)
-
-
 
 st.markdown("""
     <style>
