@@ -207,7 +207,8 @@ with st.container():
     if st.session_state.show_table and 'result_df' in st.session_state:
         result_df = st.session_state.result_df
         # 데이터프레임의 인덱스를 제거한 상태로 출력
-
+        ascending = False
+        result_df = result_df.sort_values(by="일자", ascending=ascending)
         # 페이징 추가
         rows_per_page = 100
 
