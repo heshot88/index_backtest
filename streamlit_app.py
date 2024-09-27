@@ -28,47 +28,47 @@ else:
     db_password = os.getenv('POSTGRESQL_PASSWORD')
     db_name = os.getenv('POSTGRESQL_DB')
 
-
-@st.cache_resource
-def install_package(url):
-    # subprocess.run([sys.executable, "-m", "pip", "install", url])
-    subprocess.run(["pip", "install", package_url], check=True)
-
-    # 설치된 패키지 경로 확인
-    result = subprocess.run(["pip", "show", "krx_backtester"], capture_output=True, text=True)
-    if result.returncode == 0:
-        print("krx_backtester 패키지가 설치된 경로:")
-        print(result.stdout)
-    else:
-        print("krx_backtester 패키지가 설치되지 않았습니다.")
-
-
-package_url = f"git+https://{github_token}@github.com/heshot88/krx_backtester.git#egg=krx_backtester"
-install_package(package_url)
 #
-# # 패키지 설치
-# os.system(f"pip install {package_url}") \
+# @st.cache_resource
+# def install_package(url):
+#     # subprocess.run([sys.executable, "-m", "pip", "install", url])
+#     subprocess.run(["pip", "install", package_url], check=True)
 #
-# site-packages 경로 가져오기
-site_packages_paths = site.getsitepackages()
-
-# 모든 site-packages 경로에서 설치된 패키지 이름 가져오기
-installed_packages = []
-
-for path in site_packages_paths:
-    print(path)
-    if os.path.exists(path):
-        # site-packages 폴더 내 모든 디렉토리 및 파일 탐색
-        for item in os.listdir(path):
-            # egg-info, dist-info 디렉토리가 있는 경우 패키지 이름 추출
-            if item.endswith(".dist-info") or item.endswith(".egg-info"):
-                package_name = item.split("-")[0]
-                installed_packages.append(package_name)
-
-# 결과 출력
-print("설치된 패키지 목록: ")
-for package in installed_packages:
-    print(package)
+#     # 설치된 패키지 경로 확인
+#     result = subprocess.run(["pip", "show", "krx_backtester"], capture_output=True, text=True)
+#     if result.returncode == 0:
+#         print("krx_backtester 패키지가 설치된 경로:")
+#         print(result.stdout)
+#     else:
+#         print("krx_backtester 패키지가 설치되지 않았습니다.")
+#
+#
+# package_url = f"git+https://{github_token}@github.com/heshot88/krx_backtester.git#egg=krx_backtester"
+# install_package(package_url)
+# #
+# # # 패키지 설치
+# # os.system(f"pip install {package_url}") \
+# #
+# # site-packages 경로 가져오기
+# site_packages_paths = site.getsitepackages()
+#
+# # 모든 site-packages 경로에서 설치된 패키지 이름 가져오기
+# installed_packages = []
+#
+# for path in site_packages_paths:
+#     print(path)
+#     if os.path.exists(path):
+#         # site-packages 폴더 내 모든 디렉토리 및 파일 탐색
+#         for item in os.listdir(path):
+#             # egg-info, dist-info 디렉토리가 있는 경우 패키지 이름 추출
+#             if item.endswith(".dist-info") or item.endswith(".egg-info"):
+#                 package_name = item.split("-")[0]
+#                 installed_packages.append(package_name)
+#
+# # 결과 출력
+# print("설치된 패키지 목록: ")
+# for package in installed_packages:
+#     print(package)
 
 import krx_backtester.krx_tester as kbt
 
