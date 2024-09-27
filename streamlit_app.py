@@ -49,6 +49,14 @@ else:
 # # # 패키지 설치
 # # os.system(f"pip install {package_url}") \
 #
+
+import pkgutil
+
+# 현재 환경에서 import 가능한 모든 패키지 이름 출력
+for module in pkgutil.iter_modules():
+    print(module.name)
+
+
 # site-packages 경로 가져오기
 site_packages_paths = site.getsitepackages()
 
@@ -70,7 +78,21 @@ print("설치된 패키지 목록: ")
 for package in installed_packages:
     print(package)
 
-import krx_backtester.krx_tester as kbt
+try:
+    import krx_backtester as kbt
+except Exception as e :
+    print("krx_backtester",e)
+
+try:
+    import krx-backtester as kbt
+except Exception as e :
+    print("krx-backtester",e)
+
+try:
+    import krx_tester as kbt
+except Exception as e :
+    print("krx_tester",e)
+
 
 if 'conn' not in st.session_state:
     # Initialize connection.
