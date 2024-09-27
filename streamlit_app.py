@@ -185,7 +185,7 @@ with st.container():
                 sell_fee_rate = custom_number_input("매도 수수료율(%)", value=0.2)
 
         with st.container():
-            col1, col2, col3 = st.columns([5, 1, 1])
+            col1, col2, col3 = st.columns([5, 3, 1])
             with col2:
                 order_display = {
                     "오름차순": True,
