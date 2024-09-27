@@ -56,10 +56,7 @@ else:
 if 'conn' not in st.session_state:
     # Initialize connection.
     # st.session_state.conn = st.connection("postgresql", type="sql")
-
     # engine = create_engine(f'postgresql+psycopg2://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}')
-
-    # 연결 확인
     try:
         st.session_state.conn = kbt.connect_db(db_host=db_host, db_port=db_port, db_user=db_user,
                                                db_password=db_password, db_name=db_name)
@@ -185,7 +182,7 @@ with st.container():
                 sell_fee_rate = custom_number_input("매도 수수료율(%)", value=0.2)
 
         with st.container():
-            col1, col2, col3 = st.columns([5, 3, 1])
+            col1, col2, col3 = st.columns([4, 3, 1])
             with col2:
                 order_display = {
                     "오름차순": True,
